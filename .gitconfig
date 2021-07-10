@@ -1,0 +1,9 @@
+[user]
+	name = M'hamed SEFIANE-EL OUADGHIRI
+	email = 56483502+mhamedouadghiri@users.noreply.github.com
+[core]
+	editor = vim
+[init]
+	defaultBranch = master
+[credential]
+	helper = store
