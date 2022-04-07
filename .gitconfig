@@ -5,5 +5,3 @@
 	editor = vim
 [init]
 	defaultBranch = master
-[credential]
-	helper = store
