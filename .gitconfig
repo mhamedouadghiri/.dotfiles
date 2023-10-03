@@ -5,3 +5,6 @@
 	editor = vim
 [init]
 	defaultBranch = master
+[alias]
+	setlabmail = "config user.email '8738311-mhamedouadghiri@users.noreply.gitlab.com'"
+	sethubmail = "config user.email '56483502+mhamedouadghiri@users.noreply.github.com'"

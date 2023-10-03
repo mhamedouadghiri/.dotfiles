@@ -57,15 +57,15 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 parse_git_branch() {
- git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 if [ "$color_prompt" = yes ]; then
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
+     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
 else
 #    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
+     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -122,10 +122,34 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="/opt/idea/bin:$PATH"
+export PATH="$PATH:/opt/idea/bin"
+export PATH="$PATH:/opt/clion/bin"
+export PATH="$PATH:/opt/goland/bin"
+export PATH="$PATH:/opt/postman"
+export PATH="$PATH:/usr/local/go/bin"
 
 source <(kubectl completion bash)
 alias k=kubectl
 complete -F __start_kubectl k
 
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+# function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
+
 source <(kind completion bash)
+
+export LD_LIBRARY_PATH="/home/mhamed/n7/z3/bin:$LD_LIBRARY_PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+complete -C /usr/bin/terraform terraform
+
+# >>>> Vagrant command completion (start)
+. /opt/vagrant/embedded/gems/2.3.4/gems/vagrant-2.3.4/contrib/bash/completion.sh
+# <<<<  Vagrant command completion (end)
+
+
+# source /home/mhamed/tools/cheddar/cheddar.bash
+
+source <(helm completion bash)
