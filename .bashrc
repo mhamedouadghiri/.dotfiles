@@ -137,8 +137,6 @@ complete -F __start_kubectl k
 
 source <(kind completion bash)
 
-export LD_LIBRARY_PATH="/home/mhamed/n7/z3/bin:$LD_LIBRARY_PATH"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -149,7 +147,5 @@ complete -C /usr/bin/terraform terraform
 . /opt/vagrant/embedded/gems/2.3.4/gems/vagrant-2.3.4/contrib/bash/completion.sh
 # <<<<  Vagrant command completion (end)
 
-
-# source /home/mhamed/tools/cheddar/cheddar.bash
-
 source <(helm completion bash)
+

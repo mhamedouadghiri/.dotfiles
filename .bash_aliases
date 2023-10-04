@@ -47,6 +47,7 @@ alias aptrm='sudo -- sh -c "apt -y autoremove && apt -y autoclean"'
 
 alias shut='shutdown now'
 alias restart='shutdown now -r'
+alias hiber='systemctl hibernate'
 
 alias ipa='ip -c a'
 alias netgrep='netstat -tulpn | grep '
@@ -83,8 +84,6 @@ alias al='la'
 alias shit='shut'
 alias cD='cd'
 
-# cloud stuff
-
 alias d='docker'
 
 dkrm() { docker rm $(docker ps -aq); }
@@ -101,9 +100,4 @@ alias dki='docker images'
 #k kubectl defined in .bashrc with proper completion
 export dry='--dry-run=client -oyaml'
 export fgp='--force --grace-period=0'
-
-
-# N7
-alias cdns="cd /home/mhamed/n7/a3"
-alias smpirun="smpirun -hostfile /home/mhamed/n7/a3/mpi/_archis/cluster_hostfile.txt -platform /home/mhamed/n7/a3/mpi/_archis/cluster_crossbar.xml"
 
