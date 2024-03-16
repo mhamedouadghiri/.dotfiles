@@ -122,15 +122,27 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$PATH:/opt/idea/bin"
+export TOOLS_DIR=/home/mhamed/tools
+
+export JAVA_HOME=$TOOLS_DIR/jdk17
+export PATH=$PATH:$JAVA_HOME/bin
+
+export PATH=$PATH:$TOOLS_DIR/maven3.9.4/bin
+
+export JB_DIR=/home/mhamed/.local/share/JetBrains/Toolbox/apps
+export PATH="$PATH:$JB_DIR/intellij-idea-ultimate/bin"
+export PATH="$PATH:$JB_DIR/goland/bin"
+export PATH="$PATH:$JB_DIR/android-studio/bin"
 export PATH="$PATH:/opt/clion/bin"
-export PATH="$PATH:/opt/goland/bin"
+
 export PATH="$PATH:/opt/postman"
-export PATH="$PATH:/usr/local/go/bin"
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+source <(cobra-cli completion bash)
 
 source <(kubectl completion bash)
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 # function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
@@ -144,8 +156,26 @@ export NVM_DIR="$HOME/.nvm"
 complete -C /usr/bin/terraform terraform
 
 # >>>> Vagrant command completion (start)
-. /opt/vagrant/embedded/gems/2.3.4/gems/vagrant-2.3.4/contrib/bash/completion.sh
+. /opt/vagrant/embedded/gems/gems/vagrant-2.4.1/contrib/bash/completion.sh
 # <<<<  Vagrant command completion (end)
 
 source <(helm completion bash)
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+#kubectx and kubens
+export PATH=~/.kubectx:$PATH
+
+source /home/mhamed/.task.bash
+
+complete -C '/usr/local/bin/aws_completer' aws
+
+export PATH="/opt/file-zilla/bin:$PATH"
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_HOME/emulator"
+
+export NODE_OPTIONS=--max-old-space-size=16384
 
