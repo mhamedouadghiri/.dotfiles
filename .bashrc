@@ -124,16 +124,19 @@ fi
 
 export TOOLS_DIR=/home/mhamed/tools
 
-export JAVA_HOME=$TOOLS_DIR/jdk17
-export PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME=$TOOLS_DIR/jdk21
+export PATH=$JAVA_HOME/bin:$PATH
 
-export PATH=$PATH:$TOOLS_DIR/maven3.9.4/bin
+export PATH=$PATH:$TOOLS_DIR/maven3.9.9/bin
 
 export JB_DIR=/home/mhamed/.local/share/JetBrains/Toolbox/apps
 export PATH="$PATH:$JB_DIR/intellij-idea-ultimate/bin"
+export PATH="$PATH:$JB_DIR/pycharm-professional/bin"
 export PATH="$PATH:$JB_DIR/goland/bin"
 export PATH="$PATH:$JB_DIR/android-studio/bin"
 export PATH="$PATH:/opt/clion/bin"
+
+export PATH="$PATH:$TOOLS_DIR/flutter/bin"
 
 export PATH="$PATH:/opt/postman"
 
@@ -147,8 +150,6 @@ complete -o default -F __start_kubectl k
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 # function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
 
-source <(kind completion bash)
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -156,10 +157,14 @@ export NVM_DIR="$HOME/.nvm"
 complete -C /usr/bin/terraform terraform
 
 # >>>> Vagrant command completion (start)
-. /opt/vagrant/embedded/gems/gems/vagrant-2.4.1/contrib/bash/completion.sh
+. /opt/vagrant/embedded/gems/gems/vagrant-2.4.3/contrib/bash/completion.sh
 # <<<<  Vagrant command completion (end)
 
+alias h=helm
 source <(helm completion bash)
+source <(kind completion bash)
+source <(argocd completion bash)
+source <(crictl completion bash)
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
@@ -179,3 +184,7 @@ export PATH="$PATH:$ANDROID_HOME/emulator"
 
 export NODE_OPTIONS=--max-old-space-size=16384
 
+source <(gh completion -s bash)
+source <(kompose completion bash)
+
+export GPG_TTY=$(tty)

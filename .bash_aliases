@@ -2,6 +2,8 @@ function mkcd() { mkdir -p -- "$1" && cd -P -- "$1"; }
 
 function idea() { nohup idea.sh "$@" > /dev/null 2>&1 & }
 
+function pycharm() { nohup pycharm.sh "$@" > /dev/null 2>&1 & }
+
 #function clion() { nohup clion.sh "$@" > /dev/null 2>&1 & }
 
 function goland() { nohup goland.sh "$@" > /dev/null 2>&1 & }
@@ -58,6 +60,20 @@ function pdfnup() {
     fi
 }
 
+notify() {
+    time "$@"
+    exit_code=$?
+    if [ $exit_code -eq 0 ]; then
+        notify-send "✅ Command Succeeded" "The command '$*' completed successfully."
+    else
+        notify-send "❌ Command Failed" "The command '$*' exited with code $exit_code."
+    fi
+}
+
+function b64enc() { echo -n "$1" | base64 ; }
+
+function b64dec() { echo -n "$1" | base64 -d ; }
+
 alias ls='ls --color'
 alias la='ls -Alh'
 
@@ -96,6 +112,7 @@ alias ipa='ip -c a'
 alias netgrep='netstat -tulpn | grep '
 alias snetgrep='sudo netstat -tulpn | grep '
 alias myip='ip a | egrep inet.*wlo | cut -d" " -f6 | cut -d/ -f1'
+alias mypubip='curl ifconfig.me && echo'
 
 alias psgrep='ps aux | grep '
 
@@ -115,6 +132,9 @@ alias ivgrep='grep -i -v'
 alias dushc='du -shc * | sort -h'
 alias dushc.='du -shc .[!.]* * | sort -h'
 
+alias watch1='watch -n1 '
+alias watchn='watch -n'
+
 alias gf='git fetch'
 alias gs='git status'
 alias gp='git pull'
@@ -124,16 +144,21 @@ alias gpomt='git push origin master --tags'
 alias gpomtf='git push origin master --tags --force'
 alias gd='git diff '
 alias ga='git add .'
-alias gc='git commit -m '
-alias gca='git commit --amend --no-edit'
+alias gc='git commit -S -m '
+alias gca='git commit -S --amend --no-edit'
 alias gaca='ga && gca'
 alias gpof='git push origin --force '
 alias gl='git log'
 alias gln='git log -n'
+alias gln1='git log -n1'
 alias gln2='git log -n2'
+alias gln3='git log -n3'
 alias gpob='git push origin "$(git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/")"'
 alias gpobf='gpob --force'
 alias gcpf='gaca && gpobf'
+alias gstash='git stash push --include-untracked -m '
+
+gt() { git tag -s "$1" -m "$2" "${@:2}"; }
 
 alias sl='ls'
 alias al='la'
@@ -157,5 +182,10 @@ alias dki='docker images'
 export dry='--dry-run=client -oyaml'
 export fgp='--force --grace-period=0'
 
+alias kgaa='kubectl get all -A'
+alias wkgaa='watch -n1 kubectl get all -A'
+
 alias kubectx='kubectl ctx'
 alias kubens='kubectl ns'
+
+alias k9s='docker run --network host --rm -it -v ~/.kube/config:/root/.kube/config quay.io/derailed/k9s -A'
